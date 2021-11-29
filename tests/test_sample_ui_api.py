@@ -36,3 +36,16 @@ def test_ui():
     assert "Python" in driver.title
 
 
+@pytest.mark.webtest
+def test_ui():
+    chrome_options = Options()
+    chrome_options.add_argument("window-size=1920,1080");
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    name1 = os.environ.get('projectName')
+    print("name from env ui ",name1)
+    driver = webdriver.Chrome(options=chrome_options,
+                               executable_path=ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
+    driver.get("https://github.com/")
+    assert "GitHub: Where the world builds software · GitHub" in driver.title
